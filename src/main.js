@@ -20,13 +20,14 @@ function hideLoader() {
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
   const request = event.currentTarget.elements.searchRequest.value.trim();
-  if (!request) {
-    iziToast.error({ title: 'Error', message: 'Try again' });
+  
+  if (request.length === 0) {
     return;
   }
 
   showLoader();
-
+  gallery.innerHTML = '';
+  
   fetchImages(request)
     .then(images => {
       renderGallery(gallery, images);
@@ -35,10 +36,10 @@ form.addEventListener('submit', async (event) => {
     .catch(error => {
       iziToast.error({
         title: 'Error',
-        message: error.message,
-        position: 'topRight'
+        message: 'Please enter a search query',
+            position: 'topRight'
       });
       hideLoader();
     })
-  gallery.innerHTML = '';
+  
 })

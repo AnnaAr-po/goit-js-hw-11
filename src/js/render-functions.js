@@ -27,6 +27,3 @@ export function renderGallery(images) {
     }
    
 }
-
-
-
