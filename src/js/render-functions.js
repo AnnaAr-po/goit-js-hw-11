@@ -2,23 +2,22 @@ import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
 let lightbox;
-
-export function renderGallery(images) {
-    const gallery = document.querySelector('.gallery');
-    gallery.innerHTML = images.map(image =>
-        `<li>
-        <a href="${image.largeImageURL}">
-        <img src="${image.webformatURL}" alt="${image.tags}">
+const galleryItem = ({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
+    return `<li>
+        <a href="${largeImageURL}">
+        <img src="${webformatURL}" alt="${tags}">
         </a>
         <div class="image-info">
-                <span> ${image.likes}</span>
-                <span> ${image.comments}</span>
-                <span> ${image.views}</span>
-                <span> ${image.downloads}</span>
+                <span> ${likes}</span>
+                <span> ${comments}</span>
+                <span> ${views}</span>
+                <span> ${downloads}</span>
 </div>
-        </li>`)
+        </li>`
+}
+const renderGallery = (gallery, images) => {
+    gallery.innerHTML = images.map(image => galleryItem(image))
         .join('');
-    
     
     if (!lightbox) {
     lightbox = new SimpleLightbox('.gallery a');
@@ -27,3 +26,5 @@ export function renderGallery(images) {
     }
    
 }
+
+export { renderGallery};

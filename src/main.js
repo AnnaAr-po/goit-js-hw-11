@@ -9,6 +9,7 @@ const form = document.querySelector('.search-form');
 const loader = document.querySelector('.loader');
 const gallery = document.querySelector('.gallery');
 
+
 function showLoader() {
   loader.style.display = 'flex';
 }
@@ -17,13 +18,9 @@ function hideLoader() {
   loader.style.display = 'none';
 }
 
-form.addEventListener('submit', async (event) => {
+form.addEventListener('submit', (event) => {
   event.preventDefault();
   const request = event.currentTarget.elements.searchRequest.value.trim();
-  
-  if (request.length === 0) {
-    return;
-  }
 
   showLoader();
   gallery.innerHTML = '';
@@ -31,15 +28,17 @@ form.addEventListener('submit', async (event) => {
   fetchImages(request)
     .then(images => {
       renderGallery(gallery, images);
-      hideLoader();
     })
-    .catch(error => {
-      iziToast.error({
+    .catch(() => {
+       iziToast.error({
         title: 'Error',
-        message: 'Please enter a search query',
-            position: 'topRight'
+        message: 'Failed to fetch images. Please try again later.',
+        position: 'topRight'
       });
-      hideLoader();
-    })
   
-})
+      
+      })
+      .finally(() => {
+        hideLoader();
+      });
+    })
