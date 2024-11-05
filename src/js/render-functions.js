@@ -3,15 +3,15 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 
 let lightbox;
 const galleryItem = ({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
-    return `<li>
+    return `<li class="image-card">
         <a href="${largeImageURL}">
         <img src="${webformatURL}" alt="${tags}">
         </a>
         <div class="image-info">
-                <span> ${likes}</span>
-                <span> ${comments}</span>
-                <span> ${views}</span>
-                <span> ${downloads}</span>
+                <span> Likes ${likes}</span>
+                <span> Comments ${comments}</span>
+                <span> Views ${views}</span>
+                <span> Downloads ${downloads}</span>
 </div>
         </li>`
 }

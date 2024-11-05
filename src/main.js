@@ -21,6 +21,15 @@ function hideLoader() {
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   const request = event.currentTarget.elements.searchRequest.value.trim();
+  
+  if (request === "") {
+    iziToast.warning({
+      title: 'Warning',
+      message: 'Please enter a valid search term.',
+      position: 'topRight'
+    });
+    return;
+  }
 
   showLoader();
   gallery.innerHTML = '';
